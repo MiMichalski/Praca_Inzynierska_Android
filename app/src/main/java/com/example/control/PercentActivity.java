@@ -59,7 +59,7 @@ public class PercentActivity extends AppCompatActivity {
                     }
                     cursor.close();
                     ConnectionLib.sendWidth(value);
-                    Toast.makeText(getApplicationContext(), getString(R.string.message_command_send) + value + "%", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.message_command_send) + " " + value + "%", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }

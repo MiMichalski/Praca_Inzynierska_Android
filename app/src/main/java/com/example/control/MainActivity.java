@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MainActivity extends AppCompatActivity{
 
     public static boolean hasAdminRights = false;
-    public static volatile AtomicBoolean connectedToController = new AtomicBoolean();
+    public static /*volatile*/ AtomicBoolean connectedToController = new AtomicBoolean(false);
     public static  boolean modeAuto = false;
 
     Thread recServerThread = new Thread(new ServerListener());
@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        connectedToController.set(false);
         //Starts server thread
         recServerThread.start();
 
@@ -141,16 +140,21 @@ public class MainActivity extends AppCompatActivity{
             int i = 0;
             do {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 if (mWifi.isConnected()) {
                     ConnectionLib.handshake();
-                    if(connectedToController.get()){return null;}
+                    if(connectedToController.get()){return null;}  // Volatile Atomowy boolean nie działa...
+                }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
                 i++;
-            }while(i<5 && !connectedToController.get());
+            }while(i<5 && connectedToController.get() == false);
             return null;
         }
     }
