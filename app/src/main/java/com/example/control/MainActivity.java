@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MainActivity extends AppCompatActivity{
 
     public static boolean hasAdminRights = false;
-    public static /*volatile*/ AtomicBoolean connectedToController = new AtomicBoolean(false);
+    public static volatile AtomicBoolean connectedToController = new AtomicBoolean(false);
     public static  boolean modeAuto = false;
 
     Thread recServerThread = new Thread(new ServerListener());
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity{
             ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
             int i = 0;
-            do {
+            while(i<5 && connectedToController.get() == false) {
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity{
                     e.printStackTrace();
                 }
                 i++;
-            }while(i<5 && connectedToController.get() == false);
+            }
             return null;
         }
     }
