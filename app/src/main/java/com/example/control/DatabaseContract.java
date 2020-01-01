@@ -11,4 +11,12 @@ public class DatabaseContract {
         public static final String COLUMN_NAME = "value";
     }
 
+    public static final class TimetableEntry implements  BaseColumns{
+        public static final String TABLE_NAME = "timetableList";
+        public static final String COLUMN_DAY = "day";
+        public static final String COLUMN_HOUR = "hour";
+        public static final String COLUMN_MINUTE = "minute";
+        public static final String COLUMN_VALUE = "value";
+    }
+
 }

@@ -25,4 +25,7 @@
     <string name="percent_name">Otwarcie na zadaną wartość</string>
     <string name="btn_add_value">Dodaj wartość</string>
     <string name="message_command_send">Otwieranie przesłony na</string>
+    <string name="timetable_hint_time">Czas</string>
+    <string name="timetable_hint_number">Wartość</string>
+    <string name="timetable_name">Ustawienia trybu automatycznego</string>
 </resources>

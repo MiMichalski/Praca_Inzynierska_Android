@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
 
 public class ConfigActivity extends AppCompatActivity {
@@ -25,6 +24,7 @@ public class ConfigActivity extends AppCompatActivity {
     }
 
     public void commandAutoSettings(View view){
-
+        Intent intent = new Intent(this, TimetableActivity.class);
+        startActivity(intent);
     }
 }
