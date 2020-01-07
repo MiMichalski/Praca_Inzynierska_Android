@@ -51,7 +51,7 @@ public class PercentActivity extends AppCompatActivity {
                     removeItem((long) viewHolder.itemView.getTag());
                 } else {
                     String query = "SELECT "+ DatabaseContract.PercentsEntry.COLUMN_NAME + " FROM " + DatabaseContract.PercentsEntry.TABLE_NAME + " WHERE " + DatabaseContract.PercentsEntry._ID + " =" + viewHolder.itemView.getTag() ;
-                    Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                     String value = "0";
                     Cursor  cursor = mDatabase.rawQuery(query,null);
                     if (cursor.moveToFirst()) {

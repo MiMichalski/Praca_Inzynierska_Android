@@ -14,24 +14,27 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:entries="@array/spinner_days"
         android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/timetable_time"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
         android:ems="10"
         android:hint="@string/timetable_hint_time"
-        android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@+id/timetable_value"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/timetable_button"
+        app:layout_constraintEnd_toStartOf="@+id/timetable_setTime"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timetable_spinner" />
 
@@ -48,7 +51,7 @@
         android:hint="@string/timetable_hint_number"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/timetable_time"
+        app:layout_constraintStart_toEndOf="@+id/timetable_setTime"
         app:layout_constraintTop_toBottomOf="@+id/timetable_spinner" />
 
     <Button
@@ -57,13 +60,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:onClick="commandAdd"
         android:text="@string/btn_add_value"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timetable_time"
+        app:layout_constraintTop_toBottomOf="@+id/timetable_value"
         tools:text="@string/btn_add_value" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -80,5 +84,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timetable_button" />
+
+    <Button
+        android:id="@+id/timetable_setTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:onClick="commandSetTime"
+        android:text="@string/btn_set_time"
+        app:layout_constraintEnd_toStartOf="@+id/timetable_value"
+        app:layout_constraintStart_toEndOf="@+id/timetable_time"
+        app:layout_constraintTop_toBottomOf="@+id/timetable_spinner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

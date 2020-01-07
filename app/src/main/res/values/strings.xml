@@ -28,4 +28,14 @@
     <string name="timetable_hint_time">Czas</string>
     <string name="timetable_hint_number">Wartość</string>
     <string name="timetable_name">Ustawienia trybu automatycznego</string>
+    <string name="btn_set_time">Ustaw czas</string>
+    <string-array name="spinner_days">
+        <item>Poniedziałek</item>
+        <item>Wtorek</item>
+        <item>Środa</item>
+        <item>Czwartek</item>
+        <item>Piątek</item>
+        <item>Sobota</item>
+        <item>Niedziela</item>
+    </string-array>
 </resources>
