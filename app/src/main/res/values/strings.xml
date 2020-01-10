@@ -38,4 +38,5 @@
         <item>Sobota</item>
         <item>Niedziela</item>
     </string-array>
+    <string name="messageAlreadyDefined">Wartość dla zadanego momentu została już zdefiniowana</string>
 </resources>

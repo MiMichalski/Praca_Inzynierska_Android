@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity{
                     break;
                 case WifiManager.WIFI_STATE_DISABLED:
                     connectedToController.set(false);
-                    recServerThread.interrupt();
+                    //recServerThread.interrupt();
                     break;
             }
         }
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity{
             ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
             int i = 0;
-            while(i<5 && connectedToController.get() == false) {
+            while(i<5 && !connectedToController.get()) {
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {

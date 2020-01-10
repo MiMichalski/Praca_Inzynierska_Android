@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,12 +27,14 @@ public class TimetableAdapter extends RecyclerView.Adapter<TimetableAdapter.Time
 
         public TextView time;
         public TextView value;
+        public TableRow row;
 
         public TimetableViewHolder(@NonNull View itemView) {
             super(itemView);
 
             time = itemView.findViewById(R.id.timetable_textView_time);
             value = itemView.findViewById(R.id.timetable_textView_value);
+            row = itemView.findViewById(R.id.tableRow1);
         }
     }
 
@@ -57,9 +60,21 @@ public class TimetableAdapter extends RecyclerView.Adapter<TimetableAdapter.Time
 
         String timeD = hour + ":" + minute;
         if (TimetableActivity.day == day) {
+            holder.value.setVisibility(View.VISIBLE);
+            holder.time.setVisibility(View.VISIBLE);
+            holder.row.setVisibility(View.VISIBLE);
+            holder.itemView.setVisibility(View.VISIBLE);
             holder.time.setText(timeD);
-            holder.value.setText(value);
+            holder.value.setText(Integer.toString(value));
             holder.itemView.setTag(id);
+            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        }   else {
+            holder.value.setVisibility(View.GONE);
+            holder.time.setVisibility(View.GONE);
+            holder.row.setVisibility(View.GONE);
+            holder.itemView.setVisibility(View.GONE);
+            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+
         }
     }
 

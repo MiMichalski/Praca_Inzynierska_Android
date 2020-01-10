@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,6 +65,7 @@ public class TimetableActivity extends AppCompatActivity implements TimePickerDi
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 day = (short) position;
+                mAdapter.swapCursor(getAllItems());
             }
 
             @Override
@@ -91,24 +93,45 @@ public class TimetableActivity extends AppCompatActivity implements TimePickerDi
         if(value < 0 || value > 100){
             return;
         }
-        ContentValues cv = new ContentValues();
-        cv.put(DatabaseContract.TimetableEntry.COLUMN_DAY, day);
-        cv.put(DatabaseContract.TimetableEntry.COLUMN_HOUR, tHour);
-        cv.put(DatabaseContract.TimetableEntry.COLUMN_MINUTE, tMin);
-        cv.put(DatabaseContract.TimetableEntry.COLUMN_VALUE, value);
 
-        mDatabase.insert(DatabaseContract.TimetableEntry.TABLE_NAME, null, cv);
-        mAdapter.swapCursor(getAllItems());
-        valueEdit.getText().clear();
-        timeView.setText("00:00");
-        tHour = 0;
-        tMin = 0;
+        String query = "SELECT "+ DatabaseContract.TimetableEntry.COLUMN_VALUE +
+                " FROM " + DatabaseContract.TimetableEntry.TABLE_NAME + " WHERE " +
+                DatabaseContract.TimetableEntry.COLUMN_HOUR + " = ? AND " +
+                DatabaseContract.TimetableEntry.COLUMN_MINUTE + " = ? AND " +
+                DatabaseContract.TimetableEntry.COLUMN_DAY + " = ?";
+        int check = -1;
+        Cursor  cursor = mDatabase.rawQuery(query, new String[]{Integer.toString(tHour), Integer.toString(tMin), Integer.toString(day)});
+        if (cursor.moveToFirst()) {
+            check =  Integer.parseInt(cursor.getString(cursor.getColumnIndex(DatabaseContract.TimetableEntry.COLUMN_VALUE)));
+            Toast.makeText(this, Integer.toString(check), Toast.LENGTH_SHORT).show();
+        }
+        cursor.close();
+
+        if(check<0){
+            ContentValues cv = new ContentValues();
+            cv.put(DatabaseContract.TimetableEntry.COLUMN_DAY, day);
+            cv.put(DatabaseContract.TimetableEntry.COLUMN_HOUR, tHour);
+            cv.put(DatabaseContract.TimetableEntry.COLUMN_MINUTE, tMin);
+            cv.put(DatabaseContract.TimetableEntry.COLUMN_VALUE, value);
+
+            mDatabase.insert(DatabaseContract.TimetableEntry.TABLE_NAME, null, cv);
+            mAdapter.swapCursor(getAllItems());
+            valueEdit.getText().clear();
+            timeView.setText("00:00");
+            tHour = 0;
+            tMin = 0;
+        } else {
+            Toast.makeText(this, getString(R.string.messageAlreadyDefined), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
 
     }
 
     private void removeItem(long id){
-        mDatabase.delete(DatabaseContract.PercentsEntry.TABLE_NAME,
-                DatabaseContract.PercentsEntry._ID + "=" + id, null);
+        mDatabase.delete(DatabaseContract.TimetableEntry.TABLE_NAME,
+                DatabaseContract.TimetableEntry._ID + "=" + id, null);
         mAdapter.swapCursor(getAllItems());
     }
 
@@ -125,7 +148,7 @@ public class TimetableActivity extends AppCompatActivity implements TimePickerDi
                 null,
                 null,
                 null,
-                (DatabaseContract.TimetableEntry.COLUMN_HOUR + DatabaseContract.TimetableEntry.COLUMN_MINUTE) + " DESC"
+                DatabaseContract.TimetableEntry.COLUMN_HOUR /*DatabaseContract.TimetableEntry.COLUMN_MINUTE*/ + " DESC"
         );
 
     }
