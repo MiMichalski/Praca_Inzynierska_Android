@@ -65,7 +65,7 @@ public class TimetableAdapter extends RecyclerView.Adapter<TimetableAdapter.Time
             holder.row.setVisibility(View.VISIBLE);
             holder.itemView.setVisibility(View.VISIBLE);
             holder.time.setText(timeD);
-            holder.value.setText(Integer.toString(value));
+            holder.value.setText(value + "%");
             holder.itemView.setTag(id);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }   else {

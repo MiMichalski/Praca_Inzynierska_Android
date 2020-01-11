@@ -50,7 +50,7 @@ public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.Percen
         String name = mCursor.getString(mCursor.getColumnIndex(DatabaseContract.PercentsEntry.COLUMN_NAME));
         long id = mCursor.getLong(mCursor.getColumnIndex(DatabaseContract.PercentsEntry._ID));
 
-        holder.nameText.setText(name);
+        holder.nameText.setText(name + "%");
         holder.itemView.setTag(id);
     }
 

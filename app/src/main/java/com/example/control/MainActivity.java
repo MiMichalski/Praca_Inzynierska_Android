@@ -39,7 +39,9 @@ public class MainActivity extends AppCompatActivity{
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //Starts server thread
-        recServerThread.start();
+        if(!recServerThread.isAlive()) {
+            recServerThread.start();
+        }
 
         //Starts auto mode
         Thread autoMode = new Thread(new TimeKeeper(getApplicationContext()));

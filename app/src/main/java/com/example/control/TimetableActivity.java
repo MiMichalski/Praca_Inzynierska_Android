@@ -147,7 +147,7 @@ public class TimetableActivity extends AppCompatActivity implements TimePickerDi
                 null,
                 null,
                 null,
-                DatabaseContract.TimetableEntry.COLUMN_HOUR /*DatabaseContract.TimetableEntry.COLUMN_MINUTE*/ + " DESC"
+                DatabaseContract.TimetableEntry.COLUMN_HOUR + ", " + DatabaseContract.TimetableEntry.COLUMN_MINUTE + " ASC"
         );
 
     }
