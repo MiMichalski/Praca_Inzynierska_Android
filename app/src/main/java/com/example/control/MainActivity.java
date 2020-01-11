@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity{
 
     Thread recServerThread = new Thread(new ServerListener());
 
+    private ToggleButton mode;
+
     public MainActivity() {
     }
 
@@ -39,9 +41,13 @@ public class MainActivity extends AppCompatActivity{
         //Starts server thread
         recServerThread.start();
 
+        //Starts auto mode
+        Thread autoMode = new Thread(new TimeKeeper(getApplicationContext()));
+        autoMode.start();
+
 
         //Starts toggle button listener
-        ToggleButton mode = findViewById(R.id.toggleButton);
+        mode = findViewById(R.id.toggleButton);
         mode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -71,17 +77,21 @@ public class MainActivity extends AppCompatActivity{
     public void commandOpen(View view) {
         if (connectedToController.get()) {
             ConnectionLib.sendWidth("100");
+            Toast.makeText(this, getString(R.string.message_command_send) + " 100%", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, getString(R.string.messageNC), Toast.LENGTH_LONG).show();
         }
+        if(mode.isChecked()){ mode.setChecked(false); }
     }
 
     public void commandClose(View view){
         if(connectedToController.get()){
             ConnectionLib.sendWidth("0");
+            Toast.makeText(this, getString(R.string.message_command_send) + " 0%", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, getString(R.string.messageNC), Toast.LENGTH_LONG).show();
         }
+        if(mode.isChecked()){ mode.setChecked(false); }
     }
 
     public void commandPercent(View view){
@@ -92,11 +102,12 @@ public class MainActivity extends AppCompatActivity{
         } else {
             Toast.makeText(this, getString(R.string.messageNC), Toast.LENGTH_LONG).show();
         }
+        if(mode.isChecked()){ mode.setChecked(false); }
     }
 
     public void commandSettings(View view){
         if(connectedToController.get()){
-            if(hasAdminRights == true){
+            if(hasAdminRights){
                 Intent intent = new Intent(this, ConfigActivity.class);
                 startActivity(intent);
             }

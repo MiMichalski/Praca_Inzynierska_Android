@@ -54,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ConfigActivity.class);
         startActivity(intent);
         MainActivity.hasAdminRights = true;
+        finish();
     }
 
     //On exceeding login time, informs user
