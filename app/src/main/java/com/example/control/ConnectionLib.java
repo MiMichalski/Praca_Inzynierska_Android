@@ -7,11 +7,6 @@ import java.net.Socket;
 
 public class ConnectionLib extends AsyncTask<String, Void, Void> {
 
-    public static void sendMsg(String command, String parm, String tag){
-        String message = command + "," + parm + "," + tag;
-        ConnectionLib connectionLib = new ConnectionLib();
-        connectionLib.execute(message);
-    }
     //Sends message with given percent
     public static void sendWidth(String perc){
         String message = "set," + perc;

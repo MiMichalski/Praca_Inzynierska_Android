@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity{
     public static volatile AtomicBoolean connectedToController = new AtomicBoolean(false);
     public static  boolean modeAuto = false;
 
-    Thread recServerThread = new Thread(new ServerListener());
+
 
     private ToggleButton mode;
 
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity{
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //Starts server thread
+        Thread recServerThread = new Thread(new ServerListener());
         if(!recServerThread.isAlive()) {
             recServerThread.start();
         }

@@ -11,7 +11,7 @@ public class TimeKeeper implements Runnable {
 
     private SQLiteDatabase mDatabase;
     protected Context context;
-    int dayC;
+    private int dayC;
 
     public TimeKeeper(Context context){
         this.context = context.getApplicationContext();

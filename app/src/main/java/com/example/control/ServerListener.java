@@ -12,12 +12,8 @@ import java.net.Socket;
 
 public class ServerListener implements Runnable {
 
-    Socket socket;
-    ServerSocket serverSocket ;
-    InputStreamReader inputStreamReader;
-    BufferedReader bufferedReader;
-    String message;
-    Handler handler = new Handler();
+    private Handler handler = new Handler();
+    private String message;
     public static boolean running = true;
 
     //protected Context context;
@@ -25,9 +21,13 @@ public class ServerListener implements Runnable {
     //public ServerListener(Context context){
     //    this.context = context.getApplicationContext();
     //}
-
     @Override
     public void run() {
+        Socket socket;
+        ServerSocket serverSocket ;
+        InputStreamReader inputStreamReader;
+        BufferedReader bufferedReader;
+
         try {
             serverSocket = new ServerSocket(8081);
             do {
@@ -45,7 +45,6 @@ public class ServerListener implements Runnable {
                         }
                     });
                 }
-                //MainActivity.message = message;
             } while (running);
         } catch (IOException e) {
             e.printStackTrace();
